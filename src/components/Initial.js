@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, SafeAreaView, View, StyleSheet} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import Logger from '../logger/Log';
+import Logger from '../logger/utilities/Log';
 
 export default function Initial() {
   const onNextPress = () => {

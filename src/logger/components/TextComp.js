@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text} from 'react-native';
-import {styles} from './../styles/GenericStyles';
+import {styles} from '../../styles/GenericStyles';
 
 const TextComp = prop => {
   const [numberOfLines, setNumberOfLines] = useState(1);

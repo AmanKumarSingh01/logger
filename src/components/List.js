@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import jsonPlaceholderAPI from '../constants/APIcaller';
-import Logger from './../logger/Log';
+import Logger from './../logger/utilities/Log';
 import {styles} from './../styles/GenericStyles';
 
 export default function List() {

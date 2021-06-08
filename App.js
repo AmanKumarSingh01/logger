@@ -1,13 +1,13 @@
 import {Router, Scene} from 'react-native-router-flux';
-import Logger from './src/logger/Log';
 import React, {useEffect} from 'react';
 import {Button, View} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import ErrorBoundary from './ErrorBoundaries';
 import Initial from './src/components/Initial';
 import List from './src/components/List';
-import LoggerScreen from './src/components/Logger';
+import LoggerScreen from './src/logger/components/LoggerComponent';
 import Details from './src/components/Details';
+import Logger from './src/logger/utilities/Log';
 
 const App = () => {
   useEffect(() => {

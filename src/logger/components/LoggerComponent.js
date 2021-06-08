@@ -13,10 +13,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import Logger from './../logger/Log';
-import RenderComponent from './../logger/RenderComponent';
-import {styles} from './../styles/GenericStyles';
-import LocalStorage from './../logger/LocalStorage';
+import Logger from '../utilities/Log';
+import RenderComponent from './RenderComponent';
+import {styles} from '../../styles/GenericStyles';
+import LocalStorage from '../utilities/LocalStorage';
 
 export default function LoggerScreen() {
   const [logs, setLogs] = useState([]);
@@ -106,8 +106,10 @@ export default function LoggerScreen() {
   };
 
   const handleLoggertextChange = async text => {
-    await setLoggerlimit(text);
-    Logger.setLimit(Number(text));
+    if (text.match(/^[0-9\b]+$/)) {
+      await setLoggerlimit(text);
+      Logger.setLimit(Number(text));
+    }
   };
 
   return (
@@ -116,7 +118,7 @@ export default function LoggerScreen() {
         <View style={[styles.main, styles.headerStyle, styles.marginBotton]}>
           <View>
             <TouchableOpacity activeOpacity={0.5} onPress={onBackPress}>
-              <Image source={require('./../images/back_arrow.png')} />
+              <Image source={require('../../images/back_arrow.png')} />
             </TouchableOpacity>
           </View>
           <View>
@@ -138,6 +140,8 @@ export default function LoggerScreen() {
                     style={styles.TextInput}
                     onChangeText={e => handleLoggertextChange(e)}
                     defaultValue={loggerLimit.toString()}
+                    value={loggerLimit.toString()}
+                    numeric
                   />
                 </View>
               </View>

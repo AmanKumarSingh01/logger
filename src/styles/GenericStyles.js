@@ -52,6 +52,8 @@ export const styles = StyleSheet.create({
   sidewise: {
     display: 'flex',
     flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingTop: 5,
   },
   marginLeft: {
     marginLeft: 10,

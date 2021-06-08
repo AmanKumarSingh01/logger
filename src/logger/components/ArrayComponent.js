@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import RenderComponent from './RenderComponent';
-import {styles} from '../styles/GenericStyles';
+import {styles} from '../../styles/GenericStyles';
 
 const ArrayComponent = props => {
   const [fullObjectCollapse, setFullObjectCollapse] = useState(true);
