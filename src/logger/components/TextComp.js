@@ -13,7 +13,7 @@ const TextComp = prop => {
       style={[styles.text, styles.textWidth, styles[prop.type]]}
       onPress={handleTextPress}
       numberOfLines={numberOfLines}>
-      {prop.data}
+      {prop.data ?? 'undefined'}
     </Text>
   );
 };

@@ -3,6 +3,7 @@ import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {styles} from '../styles/GenericStyles';
 import {Actions} from 'react-native-router-flux';
 import jsonPlaceholderAPI from '../constants/APIcaller';
+import Logger from './../logger/utilities/Log';
 
 const Details = ({item}) => {
   const [users, setUsers] = useState([]);
@@ -16,10 +17,11 @@ const Details = ({item}) => {
   const getUserData = () => {
     jsonPlaceholderAPI('/users')
       .then(result => {
+        Logger.log('Data fetched on Details page', result.data);
         setUsers(result.data);
       })
       .catch(error => {
-        console.error(error);
+        Logger.log('error on Details page', error);
       });
   };
 

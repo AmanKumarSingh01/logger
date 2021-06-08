@@ -9,6 +9,7 @@ const Component = {
   object: ObjectComponent,
   array: ArrayComponent,
   number: TextComp,
+  undefined: TextComp,
 };
 
 const RenderComponent = props => {
