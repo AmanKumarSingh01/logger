@@ -5,6 +5,10 @@ class Log {
     this.limit = limit;
     this.logs = [];
     this.currentLoggertab = 'all';
+    if (Log._instance) {
+      throw new Error('Only one instance can be made');
+    }
+    Log._instance = this;
   }
 
   setCurrenttab = tab => {
@@ -38,7 +42,7 @@ class Log {
   log(data) {
     let type = 'information';
     let args = [...arguments];
-
+    let date = new Date();
     //checking the local stroage
     LocalStorage.load({
       key: 'loggerdev',
@@ -52,7 +56,12 @@ class Log {
             this.logs.push({
               data: i,
               type,
-              screen: Actions.currentScene,
+              screen:
+                Actions.currentScene +
+                ' ' +
+                date.toLocaleDateString() +
+                ' ' +
+                date.toLocaleTimeString(),
             });
           });
         }
@@ -66,6 +75,7 @@ class Log {
   err(data) {
     let type = 'error';
     let args = [...arguments];
+    let date = new Date();
     LocalStorage.load({
       key: 'loggerdev',
     })
@@ -85,7 +95,12 @@ class Log {
             this.logs.push({
               data: i,
               type,
-              screen: Actions.currentScene,
+              screen:
+                Actions.currentScene +
+                ' ' +
+                date.toLocaleDateString() +
+                '' +
+                date.toLocaleTimeString(),
             });
           });
         }
@@ -98,6 +113,7 @@ class Log {
   warning(data) {
     let type = 'warning';
     let args = [...arguments];
+    let date = new Date();
     LocalStorage.load({
       key: 'loggerdev',
     })
@@ -110,7 +126,12 @@ class Log {
             this.logs.push({
               data: i,
               type,
-              screen: Actions.currentScene,
+              screen:
+                Actions.currentScene +
+                ' ' +
+                date.toLocaleDateString() +
+                '' +
+                date.toLocaleTimeString(),
             });
           });
         }
@@ -130,5 +151,6 @@ class Log {
 }
 
 const Logger = new Log(100);
+//singolton instance
 
 export default Logger;

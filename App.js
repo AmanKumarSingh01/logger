@@ -24,6 +24,9 @@ const App = () => {
         data: {
           date: new Date().toString(),
           message: 'Message logged',
+          context: {
+            name: 'ankur',
+          },
         },
       },
       'Log 4',
