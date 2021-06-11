@@ -99,6 +99,9 @@ export const styles = StyleSheet.create({
   marginBotton: {
     marginBottom: 10,
   },
+  marginTop: {
+    marginTop: 10,
+  },
   headerTextStyle: {
     color: '#618685',
     fontWeight: 'bold',

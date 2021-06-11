@@ -24,9 +24,9 @@ const LogSizeComponent = () => {
       {(type === 'warning' || type === 'limitExceeded') && (
         <View style={[styles.container, styles[type]]}>
           <View>
-            <Text style={styles[type]}>
+            {/* <Text style={styles[type]}>
               {type} {dataSize}
-            </Text>
+            </Text> */}
             <Text style={styles[type]}>
               {type === 'warning' ? WARNING_MESSAGE : LIMIT_EXCEEDED_MESSAGE}
             </Text>

@@ -110,7 +110,7 @@ export default function LoggerScreen() {
   };
 
   const handleLoggertextChange = async text => {
-    if (text.match(/^[0-9\b]+$/)) {
+    if (text.match(/^(\s*|\d+)$/)) {
       await setLoggerlimit(text);
       Logger.setLimit(Number(text));
     }
@@ -203,7 +203,7 @@ export default function LoggerScreen() {
                   <Text style={[styles.locationText]}>
                     screen : {ele.screen}
                   </Text>
-                  <ScrollView horizontal>
+                  <ScrollView style={styles.marginTop} horizontal>
                     <RenderComponent
                       component={typeof ele.data}
                       data={ele.data}

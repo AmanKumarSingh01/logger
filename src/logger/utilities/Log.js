@@ -5,7 +5,7 @@ class Log {
     this.limit = limit;
     this.logs = [];
     this._bytes = 0;
-    this._maxBytes = 1024 * 1024;
+    this._maxBytes = 1024;
     this._warningAlertTriggered = false;
     this._limitExceededAlertTriggered = false;
     this.currentLoggertab = 'all';
@@ -61,36 +61,44 @@ class Log {
       .then(res => {
         if (res) {
           args.map(i => {
-            if (this.logs.length < this.limit) {
-              let dataSize = this.sizeOf(i);
-              if (
-                this._bytes + dataSize > 0.7 * this._maxBytes &&
-                this._bytes + dataSize < this._maxBytes &&
-                !this._warningAlertTriggered
-              ) {
-                // eslint-disable-next-line no-alert
-                alert(this._WARNING_MESSAGE);
-                this._warningAlertTriggered = true;
-              } else if (
-                this._bytes + dataSize > this._maxBytes &&
-                !this._limitExceededAlertTriggered
-              ) {
-                // eslint-disable-next-line no-alert
-                alert(this._LIMIT_EXCEEDED_MESSAGE);
-                this._limitExceededAlertTriggered = true;
-              } else if (this._bytes + dataSize <= this._maxBytes) {
-                this.logs.push({
-                  data: i,
-                  type,
-                  screen:
-                    Actions.currentScene +
-                    ' ' +
-                    date.toLocaleDateString() +
-                    ' ' +
-                    date.toLocaleTimeString(),
-                });
-                this._bytes += dataSize;
-              }
+            if (this.logs.length >= this.limit) {
+              // eslint-disable-next-line no-alert
+              // alert(
+              //   'You have reached the maximum logging limit please increase the size',
+              // );
+              return;
+            }
+            let dataSize = this.sizeOf(i);
+            // if 70<=size <=100
+            if (
+              this._bytes + dataSize > 0.7 * this._maxBytes &&
+              this._bytes + dataSize < this._maxBytes &&
+              !this._warningAlertTriggered
+            ) {
+              // eslint-disable-next-line no-alert
+              alert(this._WARNING_MESSAGE);
+              this._warningAlertTriggered = true;
+            } else if (
+              this._bytes + dataSize > this._maxBytes &&
+              !this._limitExceededAlertTriggered
+            ) {
+              // eslint-disable-next-line no-alert
+              alert(this._LIMIT_EXCEEDED_MESSAGE);
+              this._limitExceededAlertTriggered = true;
+            }
+
+            if (this._bytes + dataSize <= this._maxBytes) {
+              this.logs.push({
+                data: i,
+                type,
+                screen:
+                  Actions.currentScene +
+                  ' ' +
+                  date.toLocaleDateString() +
+                  ' ' +
+                  date.toLocaleTimeString(),
+              });
+              this._bytes += dataSize;
             }
           });
         }
@@ -111,43 +119,49 @@ class Log {
       .then(res => {
         if (res) {
           args.map(i => {
-            if (this.logs.length < this.limit) {
-              if (i instanceof Error) {
-                i = {
-                  name: i.name,
-                  stack: i.stack,
-                  message: i.message,
-                };
-              }
-              let dataSize = this.sizeOf(i);
-              if (
-                this._bytes + dataSize > 0.7 * this._maxBytes &&
-                this._bytes + dataSize < this._maxBytes &&
-                !this._warningAlertTriggered
-              ) {
-                // eslint-disable-next-line no-alert
-                alert(this._WARNING_MESSAGE);
-                this._warningAlertTriggered = true;
-              } else if (
-                this._bytes + dataSize > this._maxBytes &&
-                !this._limitExceededAlertTriggered
-              ) {
-                // eslint-disable-next-line no-alert
-                alert(this._LIMIT_EXCEEDED_MESSAGE);
-                this._limitExceededAlertTriggered = true;
-              } else if (this._bytes + dataSize <= this._maxBytes) {
-                this.logs.push({
-                  data: i,
-                  type,
-                  screen:
-                    Actions.currentScene +
-                    ' ' +
-                    date.toLocaleDateString() +
-                    '' +
-                    date.toLocaleTimeString(),
-                });
-                this._bytes += dataSize;
-              }
+            if (this.logs.length >= this.limit) {
+              // eslint-disable-next-line no-alert
+              // alert(
+              //   'You have reached the maximum logging limit please increase the size',
+              // );
+              return;
+            }
+            if (i instanceof Error) {
+              i = {
+                name: i.name,
+                stack: i.stack,
+                message: i.message,
+              };
+            }
+            let dataSize = this.sizeOf(i);
+            if (
+              this._bytes + dataSize > 0.7 * this._maxBytes &&
+              this._bytes + dataSize < this._maxBytes &&
+              !this._warningAlertTriggered
+            ) {
+              // eslint-disable-next-line no-alert
+              alert(this._WARNING_MESSAGE);
+              this._warningAlertTriggered = true;
+            } else if (
+              this._bytes + dataSize > this._maxBytes &&
+              !this._limitExceededAlertTriggered
+            ) {
+              // eslint-disable-next-line no-alert
+              alert(this._LIMIT_EXCEEDED_MESSAGE);
+              this._limitExceededAlertTriggered = true;
+            }
+            if (this._bytes + dataSize <= this._maxBytes) {
+              this.logs.push({
+                data: i,
+                type,
+                screen:
+                  Actions.currentScene +
+                  ' ' +
+                  date.toLocaleDateString() +
+                  '' +
+                  date.toLocaleTimeString(),
+              });
+              this._bytes += dataSize;
             }
           });
         }
@@ -167,36 +181,43 @@ class Log {
       .then(res => {
         if (res) {
           args.map(i => {
-            if (this.logs.length < this.limit) {
-              let dataSize = this.sizeOf(i);
-              if (
-                this._bytes + dataSize > 0.7 * this._maxBytes &&
-                this._bytes + dataSize < this._maxBytes &&
-                !this._warningAlertTriggered
-              ) {
-                // eslint-disable-next-line no-alert
-                alert(this._WARNING_MESSAGE);
-                this._warningAlertTriggered = true;
-              } else if (
-                this._bytes + dataSize > this._maxBytes &&
-                !this._limitExceededAlertTriggered
-              ) {
-                // eslint-disable-next-line no-alert
-                alert(this._LIMIT_EXCEEDED_MESSAGE);
-                this._limitExceededAlertTriggered = true;
-              } else if (this._bytes + dataSize <= this._maxBytes) {
-                this.logs.push({
-                  data: i,
-                  type,
-                  screen:
-                    Actions.currentScene +
-                    ' ' +
-                    date.toLocaleDateString() +
-                    '' +
-                    date.toLocaleTimeString(),
-                });
-                this._bytes += dataSize;
-              }
+            if (this.logs.length >= this.limit) {
+              // eslint-disable-next-line no-alert
+              // alert(
+              //   'You have reached the maximum logging limit please increase the size',
+              // );
+              return;
+            }
+
+            let dataSize = this.sizeOf(i);
+            if (
+              this._bytes + dataSize > 0.7 * this._maxBytes &&
+              this._bytes + dataSize < this._maxBytes &&
+              !this._warningAlertTriggered
+            ) {
+              // eslint-disable-next-line no-alert
+              alert(this._WARNING_MESSAGE);
+              this._warningAlertTriggered = true;
+            } else if (
+              this._bytes + dataSize > this._maxBytes &&
+              !this._limitExceededAlertTriggered
+            ) {
+              // eslint-disable-next-line no-alert
+              alert(this._LIMIT_EXCEEDED_MESSAGE);
+              this._limitExceededAlertTriggered = true;
+            }
+            if (this._bytes + dataSize <= this._maxBytes) {
+              this.logs.push({
+                data: i,
+                type,
+                screen:
+                  Actions.currentScene +
+                  ' ' +
+                  date.toLocaleDateString() +
+                  '' +
+                  date.toLocaleTimeString(),
+              });
+              this._bytes += dataSize;
             }
           });
         }
