@@ -17,6 +17,7 @@ import Logger from '../utilities/Log';
 import RenderComponent from './RenderComponent';
 import {styles} from '../../styles/GenericStyles';
 import LocalStorage from '../utilities/LocalStorage';
+import LogSizeComponent from './LogSizeComponent';
 
 export default function LoggerScreen() {
   const [logs, setLogs] = useState([]);
@@ -24,6 +25,7 @@ export default function LoggerScreen() {
   const [displayLogs, setDisplayLogs] = useState(false);
   const [loggerLimit, setLoggerlimit] = useState(10);
   const [currentHighlight, setcurrentHighlight] = useState('all');
+  const [isCardVisible, setIsCardVisible] = useState(true);
 
   const onBackPress = () => {
     Actions.pop();
@@ -32,6 +34,7 @@ export default function LoggerScreen() {
   const onResetLogsPress = () => {
     Logger.reset();
     setLogs(Logger.display());
+    setIsCardVisible(false);
   };
 
   const filterData = useCallback(() => {
@@ -71,6 +74,7 @@ export default function LoggerScreen() {
   useEffect(() => {
     Checker();
     setLimit();
+    setIsCardVisible(true);
   }, []);
 
   const setLimit = async () => {
@@ -128,7 +132,7 @@ export default function LoggerScreen() {
             <Switch value={displayLogs} onChange={onToggleChange} />
           </View>
         </View>
-        <ScrollView /*stickyHeaderIndices={[0]} */ style={{flex: 1}}>
+        <ScrollView style={{flex: 1}}>
           {displayLogs && (
             <View>
               <View style={[styles.logsMenustyle]}>
@@ -145,6 +149,11 @@ export default function LoggerScreen() {
                   />
                 </View>
               </View>
+              {isCardVisible && (
+                <View>
+                  <LogSizeComponent />
+                </View>
+              )}
               <View style={[styles.main, styles.logsMenustyle]}>
                 <TouchableOpacity
                   onPress={() => setcurrentHighlight('all')}
